@@ -22,12 +22,19 @@ const getLead = (body) => {
     throw new RequestError(400, "Invalid enquiry details.");
   }
 
-  const fields = ["name", "phone", "email", "qualification", "programme"];
+  const fields = ["name", "phone", "email", "dob", "location", "qualification", "programme"];
   const lead = Object.fromEntries(fields.map((field) => [
     field,
     typeof body[field] === "string" ? body[field].trim() : "",
   ]));
   const message = typeof body.message === "string" ? body.message.trim() : "";
+  const dobDate = /^\d{4}-\d{2}-\d{2}$/.test(lead.dob)
+    ? new Date(`${lead.dob}T00:00:00.000Z`)
+    : null;
+  const validDob = dobDate !== null &&
+    !Number.isNaN(dobDate.valueOf()) &&
+    dobDate.toISOString().slice(0, 10) === lead.dob &&
+    lead.dob <= new Date().toISOString().slice(0, 10);
   const phoneDigits = lead.phone.replace(/\D/g, "");
   const phone = lead.phone.startsWith("+")
     ? `+${phoneDigits}`
@@ -42,6 +49,8 @@ const getLead = (body) => {
       lead.name.length > 100 ||
       lead.phone.length > 40 ||
       lead.email.length > 254 ||
+      !validDob ||
+      lead.location.length > 100 ||
       !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email) ||
       !/^[+()\d.\-\s]+$/.test(lead.phone) ||
       phoneDigits.length < 7 ||
@@ -66,7 +75,7 @@ const logGhlError = async (operation, response, lead) => {
     // Keep the upstream status in the log when its error response is not JSON.
   }
 
-  const sensitiveValues = [lead.name, lead.email, lead.phone, lead.qualification, lead.programme, lead.message]
+  const sensitiveValues = [lead.name, lead.email, lead.phone, lead.dob, lead.location, lead.qualification, lead.programme, lead.message]
     .filter(Boolean);
   for (const value of sensitiveValues) {
     detail = detail.replaceAll(value, "[redacted]");
@@ -127,11 +136,15 @@ export async function POST(request) {
         name: lead.name,
         email: lead.email,
         phone: lead.phone,
+        dateOfBirth: lead.dob,
+        city: lead.location,
         locationId,
         source: "RCAA Website",
         customFields: [
           { key: "contact.highest_qualification", fieldValue: lead.qualification },
           { key: "contact.course_interested_in", fieldValue: lead.programme },
+          {key : "{{contact.date_of_birth}}" , fieldValue: lead.dob},
+          {key :" {{contact.city}}" , fieldvalue : lead.location}
         ],
         tags: [
           "RCAA Landing Page",
