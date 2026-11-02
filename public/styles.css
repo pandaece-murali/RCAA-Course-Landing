@@ -576,6 +576,7 @@ h1, h2, h3, h4, .training-focus-heading { font-family: "Manrope", sans-serif; }
 .why-perks span { color: #ffd66b; }
 
 .contact-section .lead-form p:not(.form-status) { color: #34495e !important; }
+.contact-section #contact-form { scroll-margin-top: 84px; }
 
 /* Scroll-led training story, inspired by PhonePe's pinned product showcases. */
 .journey-scroll { position: relative; --journey-tint: #dceefa; background-color: var(--journey-tint); background-image: radial-gradient(ellipse at 18% 52%, rgba(255,255,255,.08), transparent 65%), linear-gradient(120deg, rgba(234,245,252,.68), rgba(248,251,254,.72) 72%); padding: 76px 0 36px; transition: background-color .65s ease; }
