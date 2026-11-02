@@ -49,7 +49,7 @@ button, input, select, textarea { font: inherit; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3, h4, .training-focus-heading { font-family: "Manrope", sans-serif; }
 .hero h1 { margin: 0 0 16px; color: #082548; font-size: clamp(39px, 4.3vw, 59px); line-height: 1.04; letter-spacing: -.045em; }
-.hero h1 span { display: block; color: #9b6700; }
+.hero h1 span { display: block; color: #a65300; }
 .about-copy h2 span { color: #dca632; }
 .hero-intro { max-width: 390px; margin-bottom: 22px; color: #4169c1; font-size: 13px; line-height: 1.75; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -348,7 +348,7 @@ h1, h2, h3, h4, .training-focus-heading { font-family: "Manrope", sans-serif; }
 .form-status { min-height: 14px; margin: 8px 0 0; color: #2b704d; font-size: 10px; }
 .form-status.is-error { color: #b42318 !important; }
 
-.site-footer { color: #d8e2ed; background: #03182d; }
+.site-footer { padding-bottom: 76px; color: #d8e2ed; background: #03182d; }
 .footer-main { display: grid; grid-template-columns: 1.3fr 1fr 1.2fr 1.4fr; gap: 25px; padding: 45px 0 36px; }
 .brand-light { color: white; }
 .brand-light .brand-mark { color: #fff; }
@@ -363,6 +363,17 @@ h1, h2, h3, h4, .training-focus-heading { font-family: "Manrope", sans-serif; }
 .footer-bottom { display: flex; justify-content: space-between; gap: 20px; padding: 15px 0; border-top: 1px solid rgba(255,255,255,.1); color: #8799aa; font-size: 8px; }
 .footer-bottom a { color: #aab8c5; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+.sticky-cta { position: fixed; inset: auto 0 0; z-index: 25; overflow: hidden; border: 1px solid #e1ad45; border-bottom: 0; border-top: 3px solid #e1ad45; background: rgba(255,255,255,.98); box-shadow: 0 -8px 26px rgba(8,37,72,.12); backdrop-filter: blur(12px); }
+.sticky-cta-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.sticky-cta-plane { position: absolute; top: 5px; left: -28px; z-index: 1; color: #b98523; font-size: 15px; line-height: 1; pointer-events: none; text-shadow: 0 0 8px rgba(245,185,65,.4); animation: sticky-plane-flight 12s linear infinite; }
+.sticky-cta-copy { display: grid; gap: 4px; }
+.sticky-cta-copy strong { color: var(--navy); font-family: "Manrope", sans-serif; font-size: 15px; }
+.sticky-cta-copy span { color: #5e7184; font-size: 11px; }
+.sticky-cta-button { min-width: 220px; min-height: 48px; }
+@keyframes sticky-plane-flight {
+  from { transform: translate3d(0, 0, 0) rotate(-8deg); }
+  to { transform: translate3d(calc(100vw + 56px), -2px, 0) rotate(-8deg); }
+}
 
 @media (max-width: 1000px) {
   .container { width: min(100% - 42px, 850px); }
@@ -925,10 +936,18 @@ h1, h2, h3, h4, .training-focus-heading { font-family: "Manrope", sans-serif; }
   .lead-form { padding: 24px 20px; border-radius: 18px; }
   .lead-form .form-row { gap: 0; }
   .hero-form { padding: 24px 20px; }
+  .site-footer { padding-bottom: 82px; }
+  .sticky-cta-inner { min-height: 72px; gap: 12px; }
+  .sticky-cta-copy strong { font-size: 12px; }
+  .sticky-cta-copy span { max-width: 190px; font-size: 9px; line-height: 1.35; }
+  .sticky-cta-button { min-width: 0; min-height: 42px; padding: 0 13px; font-size: 8px; }
 }
 @media (max-width: 430px) {
   .form-badge { font-size: 8px; letter-spacing: .09em; }
   .lead-form h3 { font-size: 24px; }
+  .sticky-cta-inner { width: calc(100% - 24px); }
+  .sticky-cta-copy span { max-width: 150px; }
+  .sticky-cta-button { gap: 6px; padding: 0 10px; font-size: 7px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .lead-form.is-visible,
