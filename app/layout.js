@@ -9,7 +9,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        {/* Meta Pixel Code */}
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
@@ -28,11 +27,8 @@ export default function RootLayout({ children }) {
             `,
           }}
         />
-        {/* End Meta Pixel Code */}
       </head>
-
       <body>
-        {/* Meta Pixel NoScript */}
         <noscript>
           <img
             height="1"
@@ -42,7 +38,6 @@ export default function RootLayout({ children }) {
             alt=""
           />
         </noscript>
-
         {children}
       </body>
     </html>
