@@ -995,4 +995,6 @@ p:not(.eyebrow):not(.form-status) { color: #1b2b3b !important; }
 }
 .thank-you-card .eyebrow { margin-bottom: 12px; color: #85611c; }
 .thank-you-card h1 { margin-bottom: 14px; color: #082548; font: 800 clamp(30px, 6vw, 46px)/1.12 "Manrope", sans-serif; }
-.thank-you-card > p:last-child { margin: 0; color: #586e81 !important; line-height: 1.65; }
+.thank-you-card p { margin: 0; color: #586e81 !important; line-height: 1.65; }
+.thank-you-actions { margin-top: 28px; display: flex; justify-content: center; }
+#thank-you-notice:not([hidden]) { margin-top: 14px; color: #85611c !important; font-size: 13px; }

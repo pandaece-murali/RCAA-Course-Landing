@@ -38,16 +38,17 @@
     <span class="thank-you-icon" aria-hidden="true">✓</span>
     <p class="eyebrow">Royale Concorde Aviation Academy</p>
     <h1 id="thank-you-title">Thank you for your enquiry!</h1>
-    <p>Your form has been submitted. You’ll be back to the page in <span id="thank-you-countdown">5</span> seconds.</p>
+    <p>Your form has been submitted successfully. Our team will get in touch with you shortly.</p>
     <p id="thank-you-notice" role="status" hidden></p>
+    <div class="thank-you-actions">
+      <a id="thank-you-home-link" href="index.html" class="button button-gold">Back to Home</a>
+    </div>
   </main>
   <script>
-    const countdown = document.querySelector("#thank-you-countdown");
     const notice = document.querySelector("#thank-you-notice");
     const submitWarning = sessionStorage.getItem("rcaa-submit-warning");
-    let secondsRemaining = 5;
+    const homeLink = document.querySelector("#thank-you-home-link");
     const savedReturnUrl = sessionStorage.getItem("rcaa-return-url");
-    let returnUrl = new URL("index.html", window.location.href);
 
     if (submitWarning) {
       notice.textContent = submitWarning;
@@ -55,24 +56,16 @@
       sessionStorage.removeItem("rcaa-submit-warning");
     }
 
-    if (savedReturnUrl) {
+    if (savedReturnUrl && homeLink) {
       try {
         const candidate = new URL(savedReturnUrl, window.location.href);
-        if (candidate.origin === window.location.origin) returnUrl = candidate;
+        if (candidate.origin === window.location.origin) {
+          homeLink.href = candidate.href;
+        }
       } catch {
-        // Keep the index page fallback for an invalid saved URL.
+        // Keep fallback href
       }
     }
-
-    const timer = window.setInterval(() => {
-      secondsRemaining -= 1;
-      countdown.textContent = String(secondsRemaining);
-      if (secondsRemaining === 0) {
-        window.clearInterval(timer);
-        sessionStorage.removeItem("rcaa-return-url");
-        window.location.replace(returnUrl.href);
-      }
-    }, 1000);
   </script>
 </body>
 
