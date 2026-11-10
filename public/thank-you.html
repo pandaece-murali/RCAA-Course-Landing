@@ -1,59 +1,79 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Thank you for contacting Royale Concorde Aviation Academy." />
-    <title>Thank You | Royale Concorde Aviation Academy</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css?v=5" />
-    <script
-      src="https://link.pandaece.com/js/external-tracking.js"
-      data-tracking-id="tk_def459c4af314be7aff85b2bb220cd20"
-    ></script>
-  </head>
-  <body class="thank-you-screen">
-    <main class="thank-you-card" aria-labelledby="thank-you-title">
-      <span class="thank-you-icon" aria-hidden="true">✓</span>
-      <p class="eyebrow">Royale Concorde Aviation Academy</p>
-      <h1 id="thank-you-title">Thank you for your enquiry!</h1>
-      <p>Your form has been submitted. You’ll be back to the page in <span id="thank-you-countdown">5</span> seconds.</p>
-      <p id="thank-you-notice" role="status" hidden></p>
-    </main>
-    <script>
-      const countdown = document.querySelector("#thank-you-countdown");
-      const notice = document.querySelector("#thank-you-notice");
-      const submitWarning = sessionStorage.getItem("rcaa-submit-warning");
-      let secondsRemaining = 5;
-      const savedReturnUrl = sessionStorage.getItem("rcaa-return-url");
-      let returnUrl = new URL("index.html", window.location.href);
 
-      if (submitWarning) {
-        notice.textContent = submitWarning;
-        notice.hidden = false;
-        sessionStorage.removeItem("rcaa-submit-warning");
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Thank you for contacting Royale Concorde Aviation Academy." />
+  <title>Thank You | Royale Concorde Aviation Academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=5" />
+  <script src="https://link.pandaece.com/js/external-tracking.js"
+    data-tracking-id="tk_def459c4af314be7aff85b2bb220cd20"></script>
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1183239723528816');
+    fbq('track', 'PageView');
+  </script>
+</head>
+
+<body class="thank-you-screen">
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1183239723528816&ev=PageView&noscript=1" alt="" /></noscript>
+  <main class="thank-you-card" aria-labelledby="thank-you-title">
+    <span class="thank-you-icon" aria-hidden="true">✓</span>
+    <p class="eyebrow">Royale Concorde Aviation Academy</p>
+    <h1 id="thank-you-title">Thank you for your enquiry!</h1>
+    <p>Your form has been submitted. You’ll be back to the page in <span id="thank-you-countdown">5</span> seconds.</p>
+    <p id="thank-you-notice" role="status" hidden></p>
+  </main>
+  <script>
+    const countdown = document.querySelector("#thank-you-countdown");
+    const notice = document.querySelector("#thank-you-notice");
+    const submitWarning = sessionStorage.getItem("rcaa-submit-warning");
+    let secondsRemaining = 5;
+    const savedReturnUrl = sessionStorage.getItem("rcaa-return-url");
+    let returnUrl = new URL("index.html", window.location.href);
+
+    if (submitWarning) {
+      notice.textContent = submitWarning;
+      notice.hidden = false;
+      sessionStorage.removeItem("rcaa-submit-warning");
+    }
+
+    if (savedReturnUrl) {
+      try {
+        const candidate = new URL(savedReturnUrl, window.location.href);
+        if (candidate.origin === window.location.origin) returnUrl = candidate;
+      } catch {
+        // Keep the index page fallback for an invalid saved URL.
       }
+    }
 
-      if (savedReturnUrl) {
-        try {
-          const candidate = new URL(savedReturnUrl, window.location.href);
-          if (candidate.origin === window.location.origin) returnUrl = candidate;
-        } catch {
-          // Keep the index page fallback for an invalid saved URL.
-        }
+    const timer = window.setInterval(() => {
+      secondsRemaining -= 1;
+      countdown.textContent = String(secondsRemaining);
+      if (secondsRemaining === 0) {
+        window.clearInterval(timer);
+        sessionStorage.removeItem("rcaa-return-url");
+        window.location.replace(returnUrl.href);
       }
+    }, 1000);
+  </script>
+</body>
 
-      const timer = window.setInterval(() => {
-        secondsRemaining -= 1;
-        countdown.textContent = String(secondsRemaining);
-        if (secondsRemaining === 0) {
-          window.clearInterval(timer);
-          sessionStorage.removeItem("rcaa-return-url");
-          window.location.replace(returnUrl.href);
-        }
-      }, 1000);
-    </script>
-  </body>
 </html>
